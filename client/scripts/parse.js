@@ -2,6 +2,34 @@ var Parse = {
 
   server: `http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`,
 
+  getMessage: function() {
+
+    var getText = function() {
+      return $('#message').val();
+    };
+
+    var getRoomName = function() {
+      return '4chan';
+
+    };
+
+    var messageData = function() {
+
+      var data = JSON.stringify(
+        {
+          username: window.location.search.substring(10, window.location.search.length),
+          text: getText(),
+          roomname: getRoomName()
+        });
+
+      return data;
+
+    };
+
+    return messageData();
+
+  },
+
   create: function(message, successCB, errorCB = null) {
     $.ajax({
       // This is the url you should use to communicate with the parse API server.

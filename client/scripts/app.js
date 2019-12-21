@@ -33,8 +33,6 @@ var App = {
         MessagesView.renderMessage(data.results[i]);
 
       }
-
-
       callback();
     });
   },
