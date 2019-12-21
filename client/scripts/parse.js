@@ -2,54 +2,21 @@ var Parse = {
 
   server: `http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`,
 
-
-
-  getMessage: function() {
-
-    // extract the URL
-
-    var link = JSON.stringify(window.location.href);
-
-    //extract username from URL
-    var getUser = function() {
-
-      var user1 = link.split('username=')[1];
-      var user = user1.substring(0, user1.length - 1); //get rid of " at the end
-      return user;
-
-    };
-
-    var getMessage = function() {
-      return $('#message').val();
-    };
-
-    var getRoomName = function() {
-      return '4chan';
-
-    };
-
-
-
-    var messageData = function() {
-      var data = JSON.stringify(
-        {
-          username: getUser(),
-          text: getMessage(),
-          roomname: getRoomName()
-        });
-
-      return data;
-
-    };
-
-    return messageData();
-
-  },
-
-
-
-
   create: function(message, successCB, errorCB = null) {
+    $.ajax({
+      // This is the url you should use to communicate with the parse API server.
+      url: Parse.server,
+      type: 'POST',
+      data: JSON.stringify(message),
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('chatterbox: Message sent');
+      },
+      error: function (data) {
+        // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+        console.error('chatterbox: Failed to send message', data);
+      }
+    });
 
   },
 
