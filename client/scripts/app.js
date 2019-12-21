@@ -10,14 +10,6 @@ var App = {
     FormView.initialize();
     RoomsView.initialize();
     MessagesView.initialize();
-
-    // Fetch initial batch of messages
-    var getMessages = $.get(`http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`, function(data) {
-
-    });
-
-
-
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
