@@ -3,14 +3,36 @@ var FormView = {
   $form: $('form'),
 
   initialize: function() {
-    FormView.$form.on('submit', FormView.handleSubmit);
+    FormView.$form.on('submit', this.handleSubmit);
   },
 
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    
-    console.log('click!');
+
+    //POST message to server
+    $.ajax({
+
+      url: Parse.server,
+      type: 'POST',
+      data: Parse.getMessage(),
+      contentType: 'application/json',
+
+      //on success
+      success: function (data) {
+        console.log('chatterbox: Message sent');
+      },
+
+      //on error
+      error: function (data) {
+        // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+        console.error('chatterbox: Failed to send message', data);
+      }
+    });
+
+
+    //clear the message input field
+    $('#message').val('');
   },
 
   setStatus: function(active) {
